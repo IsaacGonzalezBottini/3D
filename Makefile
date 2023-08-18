@@ -1,10 +1,11 @@
 CC 		= 	g++
 
-SRC		=	src/main.cpp
+SRC		=	src/main.cpp	\
+			src/glad.c
 
 NAME	= 3D
 
-LFLAGS 	= 	-Llib -lglfw3dll -lglew32 -lopengl32
+LFLAGS 	= 	-Llib -lglfw3dll -lopengl32
 
 CFLAGS	= 	-Iinclude
 
@@ -12,7 +13,7 @@ all:	$(SRC)
 	$(CC) $(SRC) -o bin/$(NAME).exe $(CFLAGS) $(LFLAGS)
 
 clean:
-	rm bin/$(NAME).exe
+	rm -f bin/$(NAME).exe
 
 re: clean all
 
