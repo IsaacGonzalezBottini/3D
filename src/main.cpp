@@ -41,7 +41,34 @@ int main() {
         0.5f, -0.5f, 0.0f,
         0.0f, 0.5f, 0.0f,
     };  
+////////////
+    float texCoords[] = {
+        0.0f, 0.0f,  // lower-left corner  
+        1.0f, 0.0f,  // lower-right corner
+        0.5f, 1.0f   // top-center corner
+    };
  
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    int width, height, nrChannels;
+    unsigned char *img = stbi_load("texture/wall.jpg", &width, &height, &nrChannels, 0);
+
+    if (img) {
+        unsigned int texture;
+        glGenTextures(1, &texture);
+        glBindTexture(GL_TEXTURE_2D, texture);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, img);
+    } else {
+        std::cout << "pb avec l'image" << std::endl;
+    }
+
+
+/////////
+
+
     slShader MyShader("./shader/vertexShader.glsl", "./shader/fragmentShader.glsl");
     
 
@@ -90,6 +117,7 @@ int main() {
 
     //glDeleteShader(vertexShader);
     //glDeleteShader(fragmentShader);  
+    stbi_image_free(img);
     glfwTerminate();
 
     return 0;
