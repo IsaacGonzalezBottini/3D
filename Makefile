@@ -1,7 +1,9 @@
 CC 		= 	g++
 
 SRC		=	src/main.cpp	\
-			src/glad.c
+			src/glad.c		\
+			src/shader.c	\
+			lib/tools.c
 
 NAME	= 3D
 
